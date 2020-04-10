@@ -31,24 +31,22 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-echo "*************************************************************************"
-echo "*  Building Maven Project                                               *"
-echo "*************************************************************************"
+echo "--------------------------------------------------------------------------------"
+echo "---                 Demo : Azkarra Streams - Scotiffy                        ---"
+echo "--------------------------------------------------------------------------------"
+
+echo -e "\n🏭 Building Maven Project (mvn clean package -q -DskipTests)\n"
 
 if [[ "$BUILD" == "true" ]]; then
   mvn clean package -q -DskipTests
 fi
 
-echo "*************************************************************************"
-echo "*  Starting Kakfa Cluster environment                                   *"
-echo "*************************************************************************"
-
-echo "Starting: single-node Kafka cluster"
+echo -e "\n🐳 Starting single-node Kafka cluster\n"
 docker-compose up -d
 
 KAFKA_CONTAINER_NAME=azkarra-cp-broker
 
-printf "Waiting for Kafka Broker to be up and running."
+echo -e "\n⏳ Waiting for Kafka Broker to be up and running\n"
 while true
 do
   if [ $(docker logs $KAFKA_CONTAINER_NAME 2>&1 | grep "started (kafka.server.KafkaServer)" >/dev/null; echo $?) -eq 0 ]; then
@@ -59,9 +57,7 @@ do
   sleep 1
 done;
 
-echo "*************************************************************************"
-echo "*  Creating Kafka topics                                                *"
-echo "*************************************************************************"
+echo -e "\n⏳ Creating all Kafka topics\n"
 
 function createTopic() {
     docker exec -it $KAFKA_CONTAINER_NAME kafka-topics --create \
@@ -77,26 +73,18 @@ createTopic db-musics 1 $DEFAULT_REPICATION_FACTOR
 createTopic events-user-activity 6 $DEFAULT_REPICATION_FACTOR
 
 
-echo "*************************************************************************"
-echo "*  Generate Scotiffy Data                                               *"
-echo "*************************************************************************"
-
 export PATH="$PATH:$(pwd)/scottify-datagen/target/scottify-datagen-$APP_VERSION-dist/scottify-datagen/bin/"
 
-echo "Generating data for 'Albums' into topic db-albums"
+echo -e "\n⏳ Generating data for 'Albums' into topic db-albums"
 scottify-datagen albums --bootstrap-servers localhost:9092 --output-topic db-albums --generate
 
-echo "Generating data for 'Users' into topic db-users"
+echo -e "\n⏳ Generating data for 'Users' into topic db-users"
 scottify-datagen users --bootstrap-servers localhost:9092 --output-topic db-users --generate
 
-echo "Generating data for 'Events' into topic events-user-activity (interval-ms: 100 max-messages 10000)"
+echo -e "\n⏳ Generating data for 'Events' into topic events-user-activity (interval-ms: 100 max-messages 10000)"
 scottify-datagen events --generate --bootstrap-servers localhost:9092 \
 --output-topic events-user-activity \
 --max-messages 10000
-
-echo "*************************************************************************"
-echo "*  Starting Scotiffy Application Instances                              *"
-echo "*************************************************************************"
 
 # Remove all logs files
 rm -rf ./logs/azkarra-console-*.log && mkdir -p ./logs
@@ -104,10 +92,10 @@ rm -rf ./logs/azkarra-console-*.log && mkdir -p ./logs
 i=1
 while [[ $i -le $NUM_INSTANCE ]]; do
    PORT="808$i"
-   echo "Starting Azkarra application instance : http://localhost:$PORT/ui"
+   echo -e "\n🚀 Starting Azkarra application instance : http://localhost:$PORT/ui"
    STATE_DIR=/tmp/kafka-streams/scottify-topologies-$i
    rm -rf $STATE_DIR && mkdir -p $STATE_DIR
-   nohup java -jar scottify-topologies/target/scottify-topologies-$APP_VERSION.jar \
+   nohup java -jar scottify-topologies/target/scottify-topologies-"$APP_VERSION".jar \
 	   --azkarra.server.port $PORT \
 	   --azkarra.context.streams.state.dir $STATE_DIR > ./logs/azkarra-console-$PORT.log 2>&1 < /dev/null &
    ((i = i + 1))
