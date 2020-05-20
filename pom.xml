@@ -47,7 +47,7 @@
 
     <properties>
         <kafka.streams.version>2.5.0</kafka.streams.version>
-        <azkarra.version>0.7.0</azkarra.version>
+        <azkarra.version>0.7.1</azkarra.version>
         <log4j.version>2.12.1</log4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
