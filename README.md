@@ -11,13 +11,23 @@ This repository is used to make demonstration during Talks (Meetups, Conferences
 ## How to quickly start the demonstration (for scene) ?
 
 ```bash
-$ ./scottify-demo-start --build true --num-instances 3
+$ ./scottify-demo-start.sh --build true --num-instances 3
+```
+
+(output)
+```
+...
+🚀 Starting Azkarra application instance : http://localhost:8081/ui
+
+🚀 Starting Azkarra application instance : http://localhost:8082/ui
+
+🚀 Starting Azkarra application instance : http://localhost:8083/ui
 ```
 
 ## How to quickly stop the demonstration (for scene) ?
 
 ```bash
-$ ./scottify-demo-stop
+$ ./scottify-demo-stop.sh
 ```
 
 ## Build
@@ -55,6 +65,23 @@ $ scottify-datagen events --generate --bootstrap-servers localhost:9092 --output
 ```bash
 java -jar scottify-topologies/target/toplistenerpergenre-1.0.jar
 ```
+
+## Azkarra WebUI
+
+
+**Topic DAG Vizualization**
+
+![Azkarra UI DAG](./static/screen-azkarra-ui-dag.png)
+
+**Consumer Group Lag**
+
+![Azkarra UI DAG](./static/screen-azkarra-ui-lag.png)
+
+**Interactive Queries**
+
+![Azkarra UI DAG](./static/screen-azkarra-ui-query.png)
+
+
 
 ## Licence
 
