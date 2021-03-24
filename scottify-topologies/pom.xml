@@ -14,43 +14,43 @@
 
     <build>
         <plugins>
-
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.0.0</version>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>2.4.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
-                            <goal>shade</goal>
+                            <goal>dockerBuild</goal>
                         </goals>
-                        <configuration>
-                            <artifactSet>
-                                <excludes>
-                                    <exclude>log4j:*</exclude>
-                                </excludes>
-                            </artifactSet>
-                            <filters>
-                                <filter>
-                                    <!-- Do not copy the signatures in the META-INF folder.
-                                    Otherwise, this might cause SecurityExceptions when using the JAR. -->
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>io.streamthoughts.scottify.demo.ScottifyApplication</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <to>
+                        <image>azkarra-demo</image>
+                    </to>
+                    <from>
+                        <image>docker://streamthoughts/azkarra-streams-worker:${azkarra.version}</image>
+                    </from>
+                    <extraDirectories>
+                        <paths>
+                            <path>
+                                <from>${project.basedir}/target/classes/docker</from>
+                                <into>/etc/azkarra</into>
+                            </path>
+                        </paths>
+                    </extraDirectories>
+                    <containerizingMode>packaged</containerizingMode>
+                    <container>
+                        <entrypoint>INHERIT</entrypoint>
+                        <appRoot>/usr/share/azkarra-components/app</appRoot>
+                        <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+                        <environment>
+                            <AZKARRA_COMPONENT_PATHS>/usr/share/azkarra-components</AZKARRA_COMPONENT_PATHS>
+                        </environment>
+                    </container>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -68,10 +68,19 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+            <version>${kafka.streams.version}</version>
+            <!-- Kafka Streams is already provided by Azkarra Worker Docker image -->
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>io.streamthoughts</groupId>
-            <artifactId>azkarra-streams</artifactId>
+            <artifactId>azkarra-api</artifactId>
             <version>${azkarra.version}</version>
-            <scope>compile</scope>
+            <!-- AzkarraAPI is already provided by Azkarra Worker Docker image -->
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

@@ -1,32 +1,59 @@
 version: '3'
 services:
-  cp-zookeeper:
-    image: confluentinc/cp-zookeeper:5.3.1
-    hostname: cp-zookeeper
-    container_name: azkarra-cp-zookeeper
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    hostname: zookeeper
+    container_name: azkarra-zookeeper
     ports:
       - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
 
-  cp-broker:
-    image: confluentinc/cp-kafka:5.3.1
-    hostname: cp-broker
-    container_name: azkarra-cp-broker
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    hostname: kafka
+    container_name: azkarra-kafka
     depends_on:
-      - cp-zookeeper
+      - zookeeper
     ports:
       - "29092:29092"
       - "9092:9092"
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: 'cp-zookeeper:2181'
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://cp-broker:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: cp-broker:29092
-      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: cp-zookeeper:2181
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka:29092
+      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper:2181
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
       CONFLUENT_METRICS_ENABLE: 'false'
+
+  azkarra-worker-1:
+    image: azkarra-demo:latest
+    hostname: azkarra-worker-1
+    container_name: azkarra-worker-1
+    expose:
+      - 8080
+    ports:
+      - "18080:8080"
+
+  azkarra-worker-2:
+    image: azkarra-demo:latest
+    hostname: azkarra-worker-2
+    container_name: azkarra-worker-2
+    expose:
+      - 8080
+    ports:
+      - "28080:8080"
+
+  azkarra-worker-3:
+    image: azkarra-demo:latest
+    hostname: azkarra-worker-3
+    container_name: azkarra-worker-3
+    expose:
+      - 8080
+    ports:
+      - "38080:8080"

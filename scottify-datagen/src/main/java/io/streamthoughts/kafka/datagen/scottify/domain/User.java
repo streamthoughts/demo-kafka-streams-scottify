@@ -105,6 +105,6 @@ public class User implements WithKey, Serializable {
      */
     @Override
     public String getKey() {
-        return id;
+        return name;
     }
 }

@@ -21,6 +21,10 @@ package io.streamthoughts.scottify.demo;
 import io.streamthoughts.azkarra.streams.AzkarraApplication;
 import io.streamthoughts.azkarra.streams.autoconfigure.annotations.AzkarraStreamsApplication;
 
+/**
+ * This class can be used for running the {@link org.apache.kafka.streams.KafkaStreams} application
+ * without Azkarra Worker docker image.
+ */
 @AzkarraStreamsApplication
 public class ScottifyApplication {
 

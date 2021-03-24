@@ -28,23 +28,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class UserListenedSongsByGenre {
+public class UserSongsListenedByGenre {
 
     private String userName;
     private Map<String, Long> listenedPerGenre;
 
-    public UserListenedSongsByGenre() {
+    public UserSongsListenedByGenre() {
         this.listenedPerGenre = new HashMap<>();
     }
 
     @JsonCreator
-    public UserListenedSongsByGenre(@JsonProperty("userName") final String userName,
+    public UserSongsListenedByGenre(@JsonProperty("userName") final String userName,
                                     @JsonProperty("listenedPerGenre") final Map<String, Long> listenedPerGenre) {
         this.userName = userName;
         this.listenedPerGenre = listenedPerGenre;
     }
 
-    public UserListenedSongsByGenre update(final User user, final Album album) {
+    public UserSongsListenedByGenre update(final User user, final Album album) {
         this.userName = user.getName();
         this.listenedPerGenre.putIfAbsent(album.getType(), 0L);
         this.listenedPerGenre.compute(album.getType(), (key, counter) -> counter + 1L);
@@ -62,8 +62,8 @@ public class UserListenedSongsByGenre {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserListenedSongsByGenre)) return false;
-        UserListenedSongsByGenre that = (UserListenedSongsByGenre) o;
+        if (!(o instanceof UserSongsListenedByGenre)) return false;
+        UserSongsListenedByGenre that = (UserSongsListenedByGenre) o;
         return Objects.equals(userName, that.userName) &&
                 Objects.equals(listenedPerGenre, that.listenedPerGenre);
     }

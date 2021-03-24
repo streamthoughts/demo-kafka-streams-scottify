@@ -11,17 +11,17 @@ This repository is used to make demonstration during Talks (Meetups, Conferences
 ## How to quickly start the demonstration (for scene) ?
 
 ```bash
-$ ./scottify-demo-start.sh --build true --num-instances 3
+$ ./scottify-demo-start.sh --build true
 ```
 
 (output)
 ```
 ...
-🚀 Starting Azkarra application instance : http://localhost:8081/ui
+🚀 Starting Azkarra application instance : http://localhost:18080/ui
 
-🚀 Starting Azkarra application instance : http://localhost:8082/ui
+🚀 Starting Azkarra application instance : http://localhost:28080/ui
 
-🚀 Starting Azkarra application instance : http://localhost:8083/ui
+🚀 Starting Azkarra application instance : http://localhost:38080/ui
 ```
 
 ## How to quickly stop the demonstration (for scene) ?
@@ -33,7 +33,7 @@ $ ./scottify-demo-stop.sh
 ## Build
 
 ```bash
-$ mvn clean package -DskipTests
+$ ./mvnw clean package -DskipTests
 $ export PATH=$PATH:`pwd`/scottify-datagen/target/scottify-datagen-1.0-dist/scottify-datagen/bin/
 ```
 
@@ -85,7 +85,7 @@ java -jar scottify-topologies/target/toplistenerpergenre-1.0.jar
 
 ## Licence
 
-Copyright 2020 StreamThoughts.
+Copyright 2021 StreamThoughts.
 
 Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file distributed with this work for additional information regarding copyright ownership. The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 

@@ -89,7 +89,7 @@ public class UserEventGenerator {
         UserEventType nextEventType = UserEventType.values()[transition];
 
         final String data = getEventDataGeneratorFor(nextEventType).generate(event, database);
-        event = new UserEvent<>(user.getId(), nextEventType, now, data);
+        event = new UserEvent<>(user.getName(), nextEventType, now, data);
 
         if (!nextEventType.isTransient()) {
             lastGeneratedEventPerUser.put(user, event);

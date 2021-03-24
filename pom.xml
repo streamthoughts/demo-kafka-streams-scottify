@@ -46,13 +46,11 @@
     </licenses>
 
     <properties>
-        <kafka.streams.version>2.5.0</kafka.streams.version>
-        <azkarra.version>0.7.1</azkarra.version>
+        <kafka.streams.version>2.7.0</kafka.streams.version>
+        <azkarra.version>0.9.2</azkarra.version>
         <log4j.version>2.12.1</log4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <build>
@@ -80,28 +78,14 @@
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-streams</artifactId>
             <version>${kafka.streams.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>io.streamthoughts</groupId>
-            <artifactId>azkarra-commons</artifactId>
-            <version>${azkarra.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>io.streamthoughts</groupId>
-            <artifactId>azkarra-metrics</artifactId>
-            <version>${azkarra.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>io.streamthoughts</groupId>
             <artifactId>azkarra-streams</artifactId>
             <version>${azkarra.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
 
         <!-- START dependencies for logging -->

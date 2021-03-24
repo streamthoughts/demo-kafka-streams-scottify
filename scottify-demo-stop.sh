@@ -14,7 +14,4 @@ fi
 echo -e "\n🐳 Stopping all docker containers\n"
 docker-compose down
 
-echo -e "\n Removing all kafka-streams local states from : /tmp/kafka-streams/"
-rm -rf /tmp/kafka-streams/scottify-topologies-*
-
 exit 0

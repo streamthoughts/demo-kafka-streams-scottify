@@ -24,6 +24,10 @@ import io.streamthoughts.azkarra.api.annotations.Restricted;
 import io.streamthoughts.azkarra.api.components.Restriction;
 import org.apache.kafka.clients.admin.NewTopic;
 
+/**
+ * The {@code TopicsConfiguration} is used to automatically create Kafka Topics for the
+ * {@link AggregateUsersListenedSongsByGenreTopology} topology.
+ */
 @Factory
 public class TopicsConfiguration {
 
