@@ -67,20 +67,41 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-streams</artifactId>
-            <version>${kafka.streams.version}</version>
-            <!-- Kafka Streams is already provided by Azkarra Worker Docker image -->
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>io.streamthoughts</groupId>
-            <artifactId>azkarra-api</artifactId>
-            <version>${azkarra.version}</version>
-            <!-- AzkarraAPI is already provided by Azkarra Worker Docker image -->
-            <scope>provided</scope>
+            <artifactId>azkarra-streams</artifactId>
         </dependency>
+
+        <!-- START dependencies for logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.28</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.14.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.14.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.14.1</version>
+        </dependency>
+        <!-- END dependencies for logging -->
     </dependencies>
 </project>

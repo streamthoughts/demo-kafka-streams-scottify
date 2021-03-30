@@ -72,46 +72,31 @@
         </plugins>
     </build>
 
-    <dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-streams</artifactId>
+                <version>${kafka.streams.version}</version>
+                <!-- Kafka Streams is already provided by Azkarra Worker Docker image -->
+                <scope>provided</scope>
+            </dependency>
 
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-streams</artifactId>
-            <version>${kafka.streams.version}</version>
-            <scope>provided</scope>
-        </dependency>
+            <dependency>
+                <groupId>io.streamthoughts</groupId>
+                <artifactId>azkarra-api</artifactId>
+                <version>${azkarra.version}</version>
+                <!-- Azkarra is already provided by Azkarra Worker Docker image -->
+                <scope>provided</scope>
+            </dependency>
 
-        <dependency>
-            <groupId>io.streamthoughts</groupId>
-            <artifactId>azkarra-streams</artifactId>
-            <version>${azkarra.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- START dependencies for logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.28</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.12.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.13.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.12.1</version>
-        </dependency>
-        <!-- END dependencies for logging -->
-    </dependencies>
+            <dependency>
+                <groupId>io.streamthoughts</groupId>
+                <artifactId>azkarra-streams</artifactId>
+                <version>${azkarra.version}</version>
+                <!-- Azkarra is already provided by Azkarra Worker Docker image -->
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
