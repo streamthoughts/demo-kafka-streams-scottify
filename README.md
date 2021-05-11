@@ -7,6 +7,7 @@ This project contains an example of streams application using Kafka Streams and 
 This repository is used to make demonstration during Talks (Meetups, Conferences, etc).
 
  * **Paris Kafka Meetup (2020-02)** : Let's Write A Production-Ready Kafka Streams App Before The End Of This Talk! ([slides](https://speakerdeck.com/fhussonnois/lets-write-a-production-ready-kafka-streams-app-before-the-end-of-this-talk)).
+ * **Kafka Summit Europe 2021** : [Writing Blazing Fast, and Production-Ready Kafka Streams apps in less than 30 min using Azkarra](https://www.kafka-summit.org/sessions/writing-blazing-fast-and-production-ready-kafka-streams-apps-in-less-than-30)
 
 ## How to quickly start the demonstration (for scene) ?
 
